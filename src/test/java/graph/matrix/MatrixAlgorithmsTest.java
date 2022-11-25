@@ -203,9 +203,24 @@ class MatrixAlgorithmsTest {
      */
     @Test
     public void testminDistGraph() {
-    
-        throw new UnsupportedOperationException("Not supported yet.");
-        
+
+        System.out.println("Test of minimum distance graph");
+
+        Graph<String, Integer> gExpected = completeMap.clone();
+        Graph<String, Integer> gObtained = Algorithms.minDistGraph(completeMap, Integer::compare, Integer::sum);
+
+        gExpected.addEdge("Porto", "Lisboa", 335);
+        gExpected.addEdge("Porto", "Coimbra", 135);
+        gExpected.addEdge("Porto", "Faro", 615);
+        gExpected.addEdge("Porto", "Viseu", 160);
+        gExpected.addEdge("Porto", "Guarda", 235);
+        gExpected.addEdge("Porto", "Castelo Branco", 335);
+        gExpected.addEdge("Porto", "Leiria", 195);
+        Collection<String> a = gExpected.adjVertices("Porto");
+
+        Collection<String> b = gObtained.adjVertices("Porto");
+
+        assertEquals(a, b);
     }
     
     
