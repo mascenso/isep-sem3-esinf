@@ -25,7 +25,6 @@ public class AirportNet {
     final private Graph<String, Route> airports;
 
     public AirportNet(){
-        
         airports = new MapGraph<>(true);
     }
 
@@ -39,16 +38,39 @@ public class AirportNet {
 
     }
 
+    /**
+     * Return the numeric key of a given airport
+     * @param airport
+     * @return
+     */
     public int keyAirport(String airport){
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+        return  airports.key(airport);
     }
 
+
+    /**
+     * Return the airport with a specific numeric key
+     * @param key
+     * @return
+     */
     public String airportbyKey(int key){
+        return airports.vertex(key);
+        //or:
+       //ArrayList<String> vertices = airports.vertices();
 
-        throw new UnsupportedOperationException("Not supported yet.");
+       //if (key<0 || key>=vertices.size())
+       //    return null;
+
+       //return vertices.get(key);
     }
 
+    /**
+     * Return the traffic between two directly linked airports, note that the traffic (number of passangers
+     * carried) between two airports may be different in the two connections
+     * @param airp1
+     * @param airp2
+     * @return
+     */
     public Integer trafficAirports(String airp1, String airp2){
 
         Integer npassengers = 0;
@@ -67,6 +89,12 @@ public class AirportNet {
         return npassengers;
     }
 
+    /**
+     * Return the miles between two directly linked airports
+     * @param airp1
+     * @param airp2
+     * @return
+     */
     public Double milesAirports(String airp1, String airp2){
 
        Edge<String, Route> edge = airports.edge(airp1, airp2);
@@ -76,6 +104,10 @@ public class AirportNet {
          return edge.getWeight().miles;
     }
 
+    /**
+     * Return the number of routes origin and destination for all airports
+     * @return
+     */
     public Map<String,Integer> nroutesAirport(){
 
         Map<String, Integer> m = new HashMap<>();
@@ -87,6 +119,10 @@ public class AirportNet {
         return m;
     }
 
+    /**
+     * Return the number of routes origin and destination for all airports
+     * @return
+     */
     public List<ArrayList<String>> airpMaxMiles( ){
 
         List<ArrayList<String>> airMaxMiles = new LinkedList<>();
@@ -107,9 +143,18 @@ public class AirportNet {
         return airMaxMiles;
     }
 
+    /**
+     * Check whether two airports are reachable
+     * @param airport1
+     * @param airport2
+     * @return
+     */
     public Boolean connectAirports(String airport1, String airport2){
-
-        throw new UnsupportedOperationException("Not supported yet.");
+        //Quando precisar de verificar quais os vertices acessiveis atraves de um dado aeroporto,
+        //é o algo DFS que deve ser utilizado
+        if (!airports.validVertex(airport1) || !airports.validVertex(airport2)) return false;
+        LinkedList<String> qairps = Algorithms.DepthFirstSearch(airports, airport1);
+        return qairps.contains(airport2);
     }
 
     @Override
