@@ -26,17 +26,17 @@ public class AirportNet {
 
     public AirportNet(){
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        airports = new MapGraph<>(true);
     }
 
     public void addAirport(String a){
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        airports.addVertex(a);
     }
 
     public void addRoute(String a1, String a2, double miles, Integer passengers){
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+        airports.addEdge(a1, a2, new Route(passengers, miles));
+
     }
 
     public int keyAirport(String airport){
@@ -51,22 +51,60 @@ public class AirportNet {
 
     public Integer trafficAirports(String airp1, String airp2){
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        Integer npassengers = 0;
+
+        Edge<String, Route> edge1 = airports.edge(airp1, airp2);
+        Edge<String, Route> edge2 = airports.edge(airp2, airp1);
+
+        if (edge1 != null) {
+            npassengers += edge1.getWeight().passengers;
+        }
+
+        if (edge2 != null) {
+            npassengers += edge2.getWeight().passengers;
+        }
+
+        return npassengers;
     }
 
     public Double milesAirports(String airp1, String airp2){
 
-        throw new UnsupportedOperationException("Not supported yet.");
+       Edge<String, Route> edge = airports.edge(airp1, airp2);
+
+         if (edge == null) return null;
+
+         return edge.getWeight().miles;
     }
 
     public Map<String,Integer> nroutesAirport(){
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        Map<String, Integer> m = new HashMap<>();
+
+        for (String airp : airports.vertices()) {
+            int grau = airports.outDegree(airp)+airports.inDegree(airp);
+            m.put(airp, grau);
+        }
+        return m;
     }
 
     public List<ArrayList<String>> airpMaxMiles( ){
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<ArrayList<String>> airMaxMiles = new LinkedList<>();
+
+        double maxMiles = Double.MIN_VALUE;
+        for (Edge<String, Route> edge : airports.edges()) {
+
+            if (edge.getWeight().miles >= maxMiles) {
+
+                if (edge.getWeight().miles > maxMiles) {
+                    maxMiles = edge.getWeight().miles;
+                    airMaxMiles.clear();
+                }
+
+                airMaxMiles.add(new ArrayList<>(Arrays.asList(edge.getVOrig(), edge.getVDest())));
+            }
+        }
+        return airMaxMiles;
     }
 
     public Boolean connectAirports(String airport1, String airport2){
