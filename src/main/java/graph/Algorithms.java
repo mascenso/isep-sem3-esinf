@@ -3,7 +3,6 @@ package graph;
 import graph.matrix.MatrixGraph;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.function.BinaryOperator;
@@ -302,16 +301,60 @@ public class Algorithms {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /** Calculates the minimum distance graph using Floyd-Warshall
-     * 
-     * @param g initial graph
-     * @param ce comparator between elements of type E
+    /**
+     * Calculates the minimum distance graph using Floyd-Warshall
+     *
+     * @param g   initial graph
+     * @param ce  comparator between elements of type E
      * @param sum sum two elements of type E
      * @return the minimum distance graph
      */
-    public static <V,E> MatrixGraph <V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static <V, E> MatrixGraph<V, E> minDistGraph(Graph<V, E> g, Comparator<E> ce, BinaryOperator<E> sum) {
+
+        int nVerts = g.numVertices();
+
+        // Initialize the solution matrix = input graph matrix.//*--*--*--*--*--*--*--*--*--*
+        Graph<V, E> minDistGraph = g.clone();
+        //--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*-
+
+        // Transitive Closure.
+        int k, i, j = 0;
+
+        for (k = 0; k < nVerts; k++) // for each line
+        {
+            for (i = 0; i < nVerts; i++) // for each column
+            {
+                //if (i != k && T[i,k] = 1)
+                if (i != k && minDistGraph.edge(i, k) != null) // if there is an edge from i to k
+                    for (j = 0; j < nVerts; j++) {
+
+                        //if (i != j && k != j && T[k,j] = 1 )
+                        if (i != j && k != j && minDistGraph.edge(minDistGraph.vertex(k), minDistGraph.vertex(j)) != null) // if there is an edge from k to j
+                        {
+                            E e = sum.apply(minDistGraph.edge(i, k).getWeight(), minDistGraph.edge(k, j).getWeight());
+                            if (minDistGraph.edge(minDistGraph.vertex(i), minDistGraph.vertex(j)) == null)
+                            {
+                                minDistGraph.addEdge(
+                                        minDistGraph.vertex(i),
+                                        minDistGraph.vertex(j),
+                                        e)       ;
+
+                            }
+                            else if (
+                                    ce.compare(
+                                            minDistGraph.edge(i, j).getWeight() ,
+                                            e
+                                    ) > 0 )
+                            {
+                                minDistGraph.edge(i, j).setWeight(e);
+                        }
+                        }
+                        // if there is an edge from k to j, and the sum is less than the current value
+                    }
+            }
+        }
+        return new MatrixGraph<>(minDistGraph);
+
     }
 
 }
