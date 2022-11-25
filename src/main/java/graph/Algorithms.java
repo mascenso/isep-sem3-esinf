@@ -101,8 +101,24 @@ public class Algorithms {
      */
     private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
                                         LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
+        int orig = g.key(vOrig);
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!visited[orig]) {
+            if (vOrig.equals(vDest)) {
+                path.addLast(vOrig);
+                LinkedList<V> clone = new LinkedList<>(path);
+                paths.add(clone);
+                path.removeLast();
+            } else {
+                visited[orig] = true;
+                path.addLast(vOrig);
+                for (Edge<V, E> tmpEdge : g.outgoingEdges(vOrig)) {
+                    allPaths(g, tmpEdge.getVDest(), vDest, visited, path, paths);
+                }
+                path.removeLast();
+                visited[orig] = false;
+            }
+        }
     }
 
     /** Returns all paths from vOrig to vDest
@@ -113,8 +129,16 @@ public class Algorithms {
      * @return paths ArrayList with all paths from vOrig to vDest
      */
     public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
+        ArrayList<LinkedList<V>> result = new ArrayList<>();
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (g.validVertex(vOrig) && g.validVertex(vDest)) {
+            boolean[] visited = new boolean[g.numVertices()];
+            LinkedList<V> path = new LinkedList<>();
+
+            allPaths(g, vOrig, vDest, visited, path, result);
+        }
+
+        return result;
     }
 
     /**
