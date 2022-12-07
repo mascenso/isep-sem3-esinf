@@ -71,4 +71,29 @@ public class Promotion {
         return lr;
     }
 
+    public List<String> getPromotions_3(Graph<String, Integer> g, Integer n) {
+        Set<String> ss = new HashSet<>();
+        Set<String> sv = new HashSet<>(g.numVertices());
+        Set<String> sp = getPromotionsRecursive(g, ss, sv, n);
+        return (sp == null) ? null : new ArrayList<>(sp);
+    }
+
+    private Set<String> getPromotionsRecursive(Graph<String, Integer> g, Set<String> ss, Set<String> sv, Integer n) {
+        if (n == null) return ss;
+        String nxt = findPromotion(g, ss, sv);
+        if (nxt != null) {
+            ss.add(nxt);
+            sv.remove(nxt);
+            return getPromotionsRecursive(g, ss, sv, n);
+        } else return null;
+    }
+
+    private String findPromotion(Graph<String, Integer> g, Set<String> ss, Set<String> sv) {
+        for (String v : sv) {
+            String nxt = testPromotion(g, ss, v);
+            if (nxt != null) return nxt;
+        }
+        return null;
+    }
+
 }
