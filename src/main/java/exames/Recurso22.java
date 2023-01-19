@@ -48,6 +48,23 @@ public class Recurso22 {
         return invertedMap;
     }
 
+    /**
+     * 2. Seja o seguinte método:
+     * Analise o método quanto à sua complexidade temporal, utilizando a notação Big-Oh. Justifique
+     *     adequadamente.
+     */
+
+    public static void complexity(int n)
+    {
+        long count = 0;
+        for (int i = 1; i < n; i=i*2) // O(log n)
+        {
+            for (int j = n; j > 1; j=j/2) // O(log n)
+            {
+                // something O(1)
+            }
+        }
+    } // Total: log n * log n  = log^2 n;
 
     /**4. Considere uma rede social em que dois utilizadores amigos têm ligação direta entre eles. Admita que
     esta rede de amizades é conectada e as ligações entre os amigos é bidirecional e unitária. Elabore um
