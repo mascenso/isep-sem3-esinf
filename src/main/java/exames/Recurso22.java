@@ -1,11 +1,11 @@
 package exames;
 
-import graph.Graph;
-import graph.matrix.MatrixGraph;
+import PL_Graphs.graph.Graph;
+import PL_Graphs.graph.matrix.MatrixGraph;
 
 import java.util.*;
 
-import static graph.Algorithms.minDistGraph;
+import static PL_Graphs.graph.Algorithms.minDistGraph;
 import static java.util.Comparator.reverseOrder;
 
 

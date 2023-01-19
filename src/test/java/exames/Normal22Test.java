@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static exames.Normal22.retornaListaAmplitude;
+
 class Normal22Test {
 
     @Test
@@ -26,7 +28,7 @@ class Normal22Test {
         map.put(s1, l1);
         map.put(s2, l2);
 
-        Assertions.assertEquals(map, Normal22.retornaListaAmplitude(amplitude, l));
+        Assertions.assertEquals(map, retornaListaAmplitude(amplitude, l));
 
     }
 }
