@@ -1,16 +1,16 @@
-package exames.recurso20220224;
+package exames;
 
+import Trees.TREE;
 import graph.Graph;
 import graph.matrix.MatrixGraph;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static exames.recurso20220224.WorldCup.footWorldCup;
-import static exames.recurso20220224.WorldCup.graphDiameter;
-import static org.junit.jupiter.api.Assertions.*;
+import static exames.Recurso22.footWorldCup;
 
-class WorldCupTest {
+class Recurso22Test {
 
     @Test
     void footWorldCupTest() {
@@ -68,8 +68,40 @@ class WorldCupTest {
 
         g.addEdge("G", "E", 1);
 
-        System.out.println(graphDiameter(g));
-        assertEquals(3, graphDiameter(g));
+        System.out.println(Recurso22.graphDiameter(g));
+        Assertions.assertEquals(3, Recurso22.graphDiameter(g));
+    }
 
+    /**
+    3. Dada uma árvore binária de pesquisa, implemente o método na classe genérica TREE<E> que devolva os
+    caminhos do nó raiz para todos os nós terminais. Para a árvore abaixo deve devolver os caminhos:
+    allPaths = [[20, 15, 10, 8, 7],
+            [20, 15, 10, 13],
+            [20, 15, 17],
+            [20, 40, 30],
+            [20, 40, 50]]
+     **/
+    @Test
+    public void allPathsTest()
+    {
+
+        //construct the tree = enunciado
+        //int[] preOrder = new int[]{20, 15, 10, 8, 7, 13, 17, 40, 30, 50 };
+        //int[] inOrder  = new int[]{7, 8, 13, 10, 17, 15, 30, 50, 40, 20 };
+
+            TREE<Integer> tree = new TREE<>();
+
+        tree.insert(20);
+        tree.insert(15);
+        tree.insert(40);
+        tree.insert(10);
+        tree.insert(17);
+        tree.insert(30);
+        tree.insert(50);
+        tree.insert(8);
+        tree.insert(13);
+        tree.insert(7);
+
+        System.out.println(tree);
     }
 }

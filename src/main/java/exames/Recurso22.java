@@ -1,4 +1,4 @@
-package exames.recurso20220224;
+package exames;
 
 import graph.Graph;
 import graph.matrix.MatrixGraph;
@@ -8,24 +8,24 @@ import java.util.*;
 import static graph.Algorithms.minDistGraph;
 import static java.util.Comparator.reverseOrder;
 
-/**
-Considere uma lista de objetos Map.Entry<Integer, String> que contem os países vencedores da Football
-        World Cup por edição, por exemplo: [(1930,"Uruguay"), (1934,"Italy"), (1938,"Italy"), (1950,"Uruguay"),...,(2006,
-        "Italy"), (2010,"Spain"), ...]. Desenvolva um método que devolve num map cada país e a respetiva lista dos
-        anos em que foi vencedor da taça. A lista dos anos deve estar ordenada decrescentemente. Para a lista de
-        objetos Map.Entry acima deve devolver Uruguay -> [1950, 1930]; Italy -> [2006, 1938, 1934]; Spain ->
-        [2010].
 
-public static Map<String, List<Integer>> footWorldCup
-        (List<Map.Entry<Integer,String>> lf)
- **/
-public class WorldCup {
+public class Recurso22 {
 
+    /**
+     1. Considere uma lista de objetos Map.Entry<Integer, String> que contem os países vencedores da Football
+     World Cup por edição, por exemplo: [(1930,"Uruguay"), (1934,"Italy"), (1938,"Italy"), (1950,"Uruguay"),...,(2006,
+     "Italy"), (2010,"Spain"), ...]. Desenvolva um método que devolve num map cada país e a respetiva lista dos
+     anos em que foi vencedor da taça. A lista dos anos deve estar ordenada decrescentemente. Para a lista de
+     objetos Map.Entry acima deve devolver Uruguay -> [1950, 1930]; Italy -> [2006, 1938, 1934]; Spain ->
+     [2010].
+
+     public static Map<String, List<Integer>> footWorldCup
+     (List<Map.Entry<Integer,String>> lf)
+     **/
     public static Map<String, List<Integer>> footWorldCup(List<Map.Entry<Integer, String>> paisesVencedores){
 
         Map<String, List<Integer>> invertedMap = new HashMap<>();
 
-       //iterar a lista
         for (Map.Entry<Integer, String> map : paisesVencedores){ //para cada um dos pares
 
             Integer mapYear = map.getKey();
