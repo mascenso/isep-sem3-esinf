@@ -237,4 +237,12 @@ public class HeapPriorityQueue<K extends Comparable,V> extends AbstractPriorityQ
     return newPQ;
   }
 
+  public void preOrder(int index, List<V> snapshot){
+    if(index >= heap.size()){
+      return;
+    }
+    snapshot.add(heap.get(index).getValue());
+    preOrder(left(index), snapshot);
+    preOrder(right(index), snapshot);
+  }
 }

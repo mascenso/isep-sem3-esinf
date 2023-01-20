@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -167,16 +169,16 @@ public class HeapPriorityQueueTest {
         System.out.println("PercolateDown");
         System.out.println(instance.toString());
         Entry<Integer,String> pq = instance.removeMin();
-        
+
         Integer[] keyshp = {8,13,10,15,20,12,40,30,21};
         System.out.println(instance.toString());
- 
+
         for (int i=0; i < instance.size(); i++){
             assertEquals(keyshp[i],instance.heap.get(i).getKey());
         }
 
         String s = instance.toString();
-        System.out.println(s); 
+        System.out.println(s);
     }
 
     /**
@@ -280,6 +282,32 @@ public class HeapPriorityQueueTest {
         temp = instance.clone();
         System.out.println(temp.toString());
         
+    }
+
+    @Test
+    public void testPreorder(){
+        List<String> l = new ArrayList<>();
+        instance.preOrder(0, l);
+        System.out.printf(l.toString());
+    }
+
+    @Test
+    public void testPreorderExame(){
+        List<String> l = new ArrayList<>();
+
+        HeapPriorityQueue<Integer,String> heap = new HeapPriorityQueue<>();
+        heap.insert(5, "cinco");
+        heap.insert(8, "oito");
+        heap.insert(10, "dez");
+        heap.insert(11, "onze");
+        heap.insert(20, "vinte");
+        heap.insert(20, "vinte");
+        heap.insert(11, "onze");
+        heap.insert(20, "vinte");
+        heap.insert(11, "doze");
+
+        heap.preOrder(0, l);
+        System.out.printf(l.toString());
     }
     
 }
