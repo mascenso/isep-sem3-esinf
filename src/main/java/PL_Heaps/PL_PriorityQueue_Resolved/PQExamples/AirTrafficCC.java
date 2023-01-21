@@ -9,10 +9,9 @@ package PL_Heaps.PL_PriorityQueue_Resolved.PQExamples;
 import PL_Heaps.PL_PriorityQueue_Resolved.Priority_queue.Entry;
 import PL_Heaps.PL_PriorityQueue_Resolved.Priority_queue.HeapPriorityQueue;
 
-/**
- *
- * @author antoniosilva
- */
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class AirTrafficCC {
     
     private HeapPriorityQueue<Integer,String> cc;
@@ -23,31 +22,65 @@ public class AirTrafficCC {
     }
     
     public String nextPlaneLanding(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return cc.removeMin().getValue();
     }
     
     public void addPlane2Queue(String id, Integer pr) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        cc.insert(pr,id);
     }
     
     public Entry<Integer,String> clearPlane4Landing() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return cc.removeMin();
     }
     
     public Integer nrPlanesWaiting() {
-        throw new UnsupportedOperationException("Not supported yet.");
+      return   cc.size();
     }
     
-    public Integer time2land(String id) {  
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Integer time2land(String id) throws CloneNotSupportedException {
+        HeapPriorityQueue<Integer, String> clone=cc.clone();
+        int time=0;
+        Entry<Integer,String> land=null;
+
+        while(!clone.isEmpty()){
+            land=clone.removeMin();
+
+            if(Objects.equals(land.getValue(), id)){
+                break;
+            }
+           time+=5;
+        }
+
+        return time;
     }
     
-    public void changePriority2(String id, Integer newp){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void changePriority2(String id, Integer newp) throws CloneNotSupportedException {
+        HeapPriorityQueue<Integer, String> clone=cc.clone();
+       ArrayList< Entry<Integer,String>> list=new ArrayList<>();
+        Entry<Integer,String> land;
+
+        while(!clone.isEmpty()){
+            land=clone.removeMin();
+
+            if(Objects.equals(land.getValue(), id)){
+                clone.insert(newp,id);
+                break;
+            }
+            list.add(land);
+        }
+        for( Entry<Integer,String> land2 : list){
+            cc.insert(land2.getKey(),land2.getValue());
+
+        }
+       cc=clone;
     }
     
     public Integer testRemove() {       
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+    @Override
+    public String toString() {
+        return cc.toString();
+    }
 }

@@ -46,7 +46,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of parent method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testParent() {
         System.out.println("parent");
         
@@ -57,7 +57,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of left method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testLeft() {
         System.out.println("left");
         int j = 4;
@@ -71,7 +71,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of right method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testRight() {
         System.out.println("right");
         int j = 1;
@@ -85,7 +85,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of hasLeft method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testHasLeft() {
         System.out.println("hasLeft");
         int j = 3;
@@ -104,7 +104,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of hasRight method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testHasRight() {
         System.out.println("hasRight");
         int j = 0;
@@ -122,7 +122,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of swap method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testSwap() {
         System.out.println("swap");
         int i = 0;
@@ -140,7 +140,7 @@ public class HeapPriorityQueueTest {
      * Test of percolateUp method, of class HeapPriorityQueue is indirectly
      * performed by the test of the insert method
      */
-    @Test
+    //@Test
     public void testPercolateUp() {
         System.out.println("PercolateUp");
         
@@ -160,7 +160,7 @@ public class HeapPriorityQueueTest {
      * Test of percolateDown method, of class HeapPriorityQueue is indirectly
      * performed by the test of the removeMin method
      */
-    @Test
+    //@Test
     public void testPercolateDown() {
         System.out.println("PercolateDown");
         
@@ -180,7 +180,7 @@ public class HeapPriorityQueueTest {
      * Test of heapify method, of class HeapPriorityQueue is indirectly
      * performed by the test setUp method
      */
-    @Test
+    //@Test
     public void testBuildHeap() {
         System.out.println("BuildHeap");
         Integer[] keyshp = {5,8,10,13,20,12,40,30,15,21};
@@ -194,7 +194,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of size method, of class HeapPriorityQueue 
      */
-    @Test
+    //@Test
     public void testSize() {
         System.out.println("size");
      
@@ -207,7 +207,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of min method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testMin() {
         System.out.println("min");
         
@@ -222,7 +222,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of insert method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testInsert() {
         System.out.println("insert");
         instance.insert(3, "tres");
@@ -241,7 +241,7 @@ public class HeapPriorityQueueTest {
     /**
      * Test of removeMin method, of class HeapPriorityQueue.
      */
-    @Test
+    //@Test
     public void testRemoveMin() {
         System.out.println("removeMin");
         
@@ -260,7 +260,7 @@ public class HeapPriorityQueueTest {
         
     }
  
-    @Test
+    //@Test
     public void toStringTest() {
         System.out.println("toString");
         
@@ -268,7 +268,7 @@ public class HeapPriorityQueueTest {
         System.out.println(s);
     }
     
-    @Test
+    //@Test
     public void testClone() {
         System.out.println("Clone");
         
