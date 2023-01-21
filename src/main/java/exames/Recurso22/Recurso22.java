@@ -1,4 +1,4 @@
-package exames;
+package exames.Recurso22;
 
 import PL_Graphs.graph.Graph;
 import PL_Graphs.graph.matrix.MatrixGraph;
@@ -66,6 +66,37 @@ public class Recurso22 {
         }
     } // Total: log n * log n  = log^2 n;
 
+    /**
+     * 3. Dada uma árvore binária de pesquisa, implemente o método na classe genérica TREE<E> que devolva os
+     * caminhos do nó raiz para todos os nós terminais.
+     */
+    public static class TREE<E extends Comparable<E>> extends BST<E> {
+
+        public void allPathsFromRootToLeaves(List<List<E>> allPaths){
+            allPaths.clear();
+            allPathsFromRootToLeaves(root, allPaths);
+        }
+
+        private void allPathsFromRootToLeaves(Node<E> node, List<List<E>> allPaths){
+            Stack<E> stack = new Stack<>(); // Could use a LinkedList also, as a stack
+            inOrderSubtree(node, stack, allPaths);
+        }
+
+        private void inOrderSubtree(Node<E> node, Stack<E> stack, List<List<E>> allPaths) {
+            if (node == null) return;
+            stack.push(node.getElement()); // stackLL.offerLast(node.getElement());
+
+            inOrderSubtree(node.getLeft(), stack, allPaths);
+            if (node.getLeft() == null && node.getRight() == null) {
+                List<E> path = new ArrayList<>(stack);
+                allPaths.add(path);
+            }
+            inOrderSubtree(node.getRight(), stack, allPaths);
+            stack.pop(); // stackLL.removeLast();
+        }
+    }
+
+
     /**4. Considere uma rede social em que dois utilizadores amigos têm ligação direta entre eles. Admita que
     esta rede de amizades é conectada e as ligações entre os amigos é bidirecional e unitária. Elabore um
     método que devolva o número de ligações entre os dois utilizadores mais afastados nesta rede (diâmetro
@@ -87,5 +118,44 @@ public class Recurso22 {
             }
         }
         return diameter;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Exame 2022-02-24 - Recurso 22\n");
+
+        System.out.println(" Questão 1");
+        Map.Entry<Integer, String> a = new AbstractMap.SimpleEntry<>(1930, "Uruguay");
+        Map.Entry<Integer, String> b = new AbstractMap.SimpleEntry<>(1934, "Italy");
+        Map.Entry<Integer, String> c = new AbstractMap.SimpleEntry<>(1938, "Italy");
+        Map.Entry<Integer, String> d = new AbstractMap.SimpleEntry<>(1950, "Uruguay");
+        Map.Entry<Integer, String> f = new AbstractMap.SimpleEntry<>(1958, "Brazil");
+        Map.Entry<Integer, String> g = new AbstractMap.SimpleEntry<>(1962, "Brazil");
+        Map.Entry<Integer, String> h = new AbstractMap.SimpleEntry<>(1966, "England");
+        Map.Entry<Integer, String> i = new AbstractMap.SimpleEntry<>(1970, "Brazil");
+
+        System.out.println(footWorldCup(Arrays.asList(a,b,c,d,f,g,h,i)));
+
+        System.out.println();
+
+        System.out.println(" Questão 3");
+
+        TREE<Integer> tree = new TREE<>();
+        tree.insert(20);
+        tree.insert(15);
+        tree.insert(40);
+        tree.insert(10);
+        tree.insert(17);
+        tree.insert(30);
+        tree.insert(50);
+        tree.insert(8);
+        tree.insert(13);
+        tree.insert(7);
+
+        System.out.printf(tree.toString());
+
+        List<List<Integer>> allPaths = new ArrayList<>();
+        tree.allPathsFromRootToLeaves(allPaths);
+
+        System.out.println(allPaths);
     }
 }

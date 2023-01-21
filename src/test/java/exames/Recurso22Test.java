@@ -3,12 +3,13 @@ package exames;
 import PL_Trees.Trees.TREE;
 import PL_Graphs.graph.Graph;
 import PL_Graphs.graph.matrix.MatrixGraph;
+import exames.Recurso22.Recurso22;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static exames.Recurso22.footWorldCup;
+import static exames.Recurso22.Recurso22.footWorldCup;
 
 class Recurso22Test {
 
