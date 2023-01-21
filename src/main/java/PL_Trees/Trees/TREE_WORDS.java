@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TREE_WORDS extends BST<TextWord> {
 
     public void createTree() throws FileNotFoundException {
-        Scanner readfile = new Scanner(new File("src/main/java/Trees/xxx.xxx"));
+        Scanner readfile = new Scanner(new File("src/main/java/PL_Trees/Trees/xxx.xxx"));
         while (readfile.hasNextLine()) {
             String[] pal = readfile.nextLine().split("(\\,)|(\\s)|(\\.)");
             for (String word : pal)
