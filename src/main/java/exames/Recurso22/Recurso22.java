@@ -32,10 +32,8 @@ public class Recurso22 {
             String mapCountry = map.getValue();
 
             if ( invertedMap.containsKey(mapCountry) ){
-               List<Integer> a = invertedMap.get(mapCountry);
-               a.add(map.getKey());
-               a.sort(reverseOrder());
-               invertedMap.put(mapCountry, a);
+               invertedMap.get(mapCountry).add(mapYear);
+               invertedMap.get(mapCountry).sort(reverseOrder());
             }
             else{
                 //criar uma lista com o ano, do maior para o menor
