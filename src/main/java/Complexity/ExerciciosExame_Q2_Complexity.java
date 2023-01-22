@@ -71,15 +71,35 @@ public class ExerciciosExame_Q2_Complexity {
         System.out.println("Not found");
     }
 
+    /**
+     * Exame Normal - 19 de Fevereiro 2021
+     * @param n
+     */
+    static public void mistery (int n) {
+        if (n > 0) {
+            for (int i=1; i<=n; i=i*2) { //log n
+                System.out.print("u");; // método de complexidade O(1)
+            }
+            mistery(n-1); // recursive call runs n times
+        }
+    } //Total: n * log n
+
     public static void main(String[] args) {
 
         System.out.println(" Especial 2022 - 08/09/2022");
-        complexity(100000);
+        complexity(100);
         Integer[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         complexity(a, 0, a.length);
         System.out.println(Arrays.toString(a));
 
+
+
         int[] b = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         binarySearch(b, 10);
+
+        // Para n = 100 printa 580 vezes
+        // Confirma complexidade O(n*log n)
+        mistery (100);
+
     }
 }
