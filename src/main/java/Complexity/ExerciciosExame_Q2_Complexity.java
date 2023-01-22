@@ -88,13 +88,32 @@ public class ExerciciosExame_Q2_Complexity {
     static public void mistery (int n) {
         if (n > 0) {
             for (int i=1; i<=n; i=i*2) { //log n
-                System.out.print("u");; // método de complexidade O(1)
+                System.out.print(n + "_");; // método de complexidade O(1)
             }
             mistery(n-1); // recursive call runs n times
         }
     } //Total: n * log n
 
+
+    /**
+     * Nao sei o exame
+     * @param a
+     * @param n
+     */
+    public static void exemplo(Integer[] a, int n){
+        int x = n/2;
+        if (n>0){
+            exemplo(a, x);              // a chamada recursiva é chamada log n vezes, mas a unica coisa q faz é dividir n por 2,
+            for (int i=0; i<n; i++){    // O(n) Este for vai correr n vezes na primeira iteracao, depois n/2, depois n/4 + n/8 + ... + 1.
+                                        // O numero de iteracoes no total é n/1 + n/2 + n/4 + n/8 + ... + 1 = 2n - 1, ou seja, O(n)
+                System.out.print(n + "_");
+            }
+        }
+    } // Total = O(n) + O log n = O(n)
+
     public static void main(String[] args) {
+        Integer[] arraySmall = {1,2,3,4,5,6,7,8,9,10};
+        Integer[] arrayBig = new Integer[10000000];
         long start;
         long end;
 
@@ -133,10 +152,18 @@ public class ExerciciosExame_Q2_Complexity {
         //pcausa do nr exagerado de chamadas recursivas
         //Confirma complexidade O(n*log n)
         start = System.nanoTime();
-        mistery (1000);
+        mistery (100);
         end = System.nanoTime();
         System.out.println();
         System.out.println("Time: " + (end - start) + " ms");
 
+
+        System.out.println("Exemplo:");
+        start = System.nanoTime();
+        exemplo (new Integer[1], 100); // o array n ta la a fazer nd, o q interessa é o 2 argumento
+        end = System.nanoTime();
+        // complex n
+        System.out.println();
+        System.out.println("Time: " + (end - start) + " ms");
     }
 }
