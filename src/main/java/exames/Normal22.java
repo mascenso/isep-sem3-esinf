@@ -46,4 +46,39 @@ public class Normal22 {
         }
         return map;
     }
+
+    public static int encontrar(String str, String padrao){
+        int j = 0;
+        while (j < str.length()) {
+            int jj = j;
+            int k = 0;
+            while (jj < str.length() && str.charAt(jj)==padrao.charAt(k)){
+                jj++;
+                k++;
+                if (k == padrao.length()) return j;
+            }
+            j++;
+        }
+        return -1;
+    } // complexity n
+
+    public static void main(String[] args) {
+        List<Integer> l = new ArrayList<>();
+        l.add(1);
+        l.add(2);
+        l.add(3);
+        l.add(3);
+        l.add(4);
+        l.add(6);
+        l.add(8);
+        l.add(9);
+        System.out.println(retornaListaAmplitude(2, l));
+
+
+        System.out.println(
+        encontrar("abxabxxxc", "c")
+        );
+    }
+
+
 }
