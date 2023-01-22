@@ -49,10 +49,13 @@ public class Normal22 {
 
     public static int encontrar(String str, String padrao){
         int j = 0;
+        int a = 0;
         while (j < str.length()) {
             int jj = j;
             int k = 0;
             while (jj < str.length() && str.charAt(jj)==padrao.charAt(k)){
+                a++;
+                System.out.println(a);
                 jj++;
                 k++;
                 if (k == padrao.length()) return j;
@@ -60,7 +63,7 @@ public class Normal22 {
             j++;
         }
         return -1;
-    } // complexity n
+    } // complexity n²
 
     public static void main(String[] args) {
         List<Integer> l = new ArrayList<>();
@@ -76,7 +79,7 @@ public class Normal22 {
 
 
         System.out.println(
-        encontrar("abxabxxxc", "c")
+        encontrar("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaax", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         );
     }
 
