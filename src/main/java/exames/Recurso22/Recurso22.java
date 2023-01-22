@@ -1,11 +1,11 @@
 package exames.Recurso22;
 
-import PL_Graphs.graph.Graph;
-import PL_Graphs.graph.matrix.MatrixGraph;
+import Graphs.PL_Graphs.graph.Graph;
+import Graphs.PL_Graphs.graph.matrix.MatrixGraph;
 
 import java.util.*;
 
-import static PL_Graphs.graph.Algorithms.minDistGraph;
+import static Graphs.PL_Graphs.graph.Algorithms.minDistGraph;
 import static java.util.Comparator.reverseOrder;
 
 
@@ -104,7 +104,6 @@ public class Recurso22 {
     public Integer graphDiameter (Graph<User,Integer> g)
      **/
     public static <V> Integer graphDiameter (Graph<String,Integer> g){
-
         MatrixGraph<String, Integer> graph = minDistGraph(g, Integer::compareTo, Integer::sum);
 
         System.out.println(graph);

@@ -1,8 +1,8 @@
 package exames;
 
-import PL_Trees.Trees.TREE;
-import PL_Graphs.graph.Graph;
-import PL_Graphs.graph.matrix.MatrixGraph;
+import Trees.PL_Trees.Trees.TREE;
+import Graphs.PL_Graphs.graph.Graph;
+import Graphs.PL_Graphs.graph.matrix.MatrixGraph;
 import exames.Recurso22.Recurso22;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

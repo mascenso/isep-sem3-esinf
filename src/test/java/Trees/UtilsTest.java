@@ -4,7 +4,7 @@ package Trees;
 import java.util.Arrays;
 import java.util.List;
 
-import PL_Trees.Trees.Utils;
+import Trees.PL_Trees.Trees.Utils;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

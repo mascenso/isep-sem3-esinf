@@ -8,7 +8,7 @@ package Trees;
 import java.util.Arrays;
 import java.util.List;
 
-import PL_Trees.Trees.AVL;
+import Trees.PL_Trees.Trees.AVL;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
