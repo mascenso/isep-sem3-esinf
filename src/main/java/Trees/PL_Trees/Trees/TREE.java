@@ -8,7 +8,6 @@ import java.util.List;
  * @author DEI-ESINF
  * @param <E>
  */
-
 public class TREE<E extends Comparable<E>> extends BST<E> {
  
    /*
@@ -16,15 +15,58 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
    * @return true if the element exists in tree false otherwise
    */   
     public boolean contains(E element) {
-         throw new UnsupportedOperationException("Not supported yet.");
+        Boolean found = false;
+        Node<E> node = root;
+        while (node != null && !found) {
+            if (element.compareTo(node.getElement()) < 0) {
+                node = node.getLeft();
+            } else if (element.compareTo(node.getElement()) > 0) {
+                node = node.getRight();
+            } else {
+                found = true;
+            }
+        }
+        return found;
     }
 
  
     public boolean isLeaf(E element){
-         throw new UnsupportedOperationException("Not supported yet.");
+
+       if (element == null) {
+            return false;
+        }
+        Node<E> node = root;
+        while (node != null) {
+            if (element.compareTo(node.getElement()) < 0) {
+                node = node.getLeft();
+            } else if (element.compareTo(node.getElement()) > 0) {
+                node = node.getRight();
+            } else {
+                return node.getLeft() == null && node.getRight() == null;
+            }
+        }
+        return false;
     }
 
-   /*
+    private void ascSubtree(Node<E> node, List<E> snapshot) {
+        if (node == null) {
+            return;
+        }
+        ascSubtree(node.getLeft(), snapshot);
+        snapshot.add(node.getElement());
+        ascSubtree(node.getRight(), snapshot);
+    }
+
+    private void desSubtree(Node<E> node, List<E> snapshot) {
+        if (node == null) {
+            return;
+        }
+        desSubtree(node.getRight(), snapshot);
+        snapshot.add(node.getElement());
+        desSubtree(node.getLeft(), snapshot);
+    }
+
+   /**
    * build a list with all elements of the tree. The elements in the 
    * left subtree in ascending order and the elements in the right subtree 
    * in descending order. 
@@ -33,16 +75,14 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
    * in ascending order and the elements in the right subtree is descending order.
    */
     public Iterable<E> ascdes(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<E> list = new ArrayList<>();
+        ascSubtree(root.getLeft(), list);
+        list.add(root.getElement());
+        desSubtree(root.getRight(), list);
+        return list;
     }
 
-    private void ascSubtree(Node<E> node, List<E> snapshot) {
-        throw new UnsupportedOperationException("Not supported yet.");          
-    }
-    
-    private void desSubtree(Node<E> node, List<E> snapshot) {
-        throw new UnsupportedOperationException("Not supported yet.");  
-    }
+
    
     /**
     * Returns the tree without leaves.
@@ -53,8 +93,6 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
         TREE<E> t = new TREE<>();
         t.root = copyRec(root());
         return t;
-
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     private Node<E> copyRec(Node<E> node){
@@ -68,8 +106,6 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
         }
 
         return new Node<>(node.getElement(), copyRec(node.getLeft()), copyRec(node.getRight()));
-
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
@@ -82,8 +118,6 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
 
         numNodesByLevel(root(), numNodes, 0);
         return numNodes;
-
-       //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     private void numNodesByLevel(Node<E> node, int[] result, int level){
@@ -96,17 +130,11 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
 
         numNodesByLevel(node.getLeft(), result, level + 1);
         numNodesByLevel(node.getRight(), result, level + 1);
-
-        //throw new UnsupportedOperationException("Not supported yet.");
         
     }
     
     public boolean perfectBalanced(){
         return perfectBalanced(root());
-
-
-
-       //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     private boolean perfectBalanced(Node<E> node){
@@ -121,31 +149,38 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
        if (!perfectBalanced(node.getLeft())) return false;
 
        return perfectBalanced(node.getRight());
-
-
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     
     public E lowestCommonAncestor(E elem1, E elem2){
-            
-        throw new UnsupportedOperationException("Not supported yet.");
+
+            return lowestCommonAncestor(root(), elem1, elem2).getElement();
     }
     
     private Node<E> lowestCommonAncestor(Node<E> node, E elem1, E elem2){
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (node == null) {
+            return null;
+        }
+
+        if (node.getElement().compareTo(elem1) > 0 && node.getElement().compareTo(elem2) > 0) {
+            return lowestCommonAncestor(node.getLeft(), elem1, elem2);
+        }
+
+        if (node.getElement().compareTo(elem1) < 0 && node.getElement().compareTo(elem2) < 0) {
+            return lowestCommonAncestor(node.getRight(), elem1, elem2);
+        }
+
+        return node;
     }
     
     
     public BST<E>  minCompletSubtree(E elem1, E elem2){
-            
-        throw new UnsupportedOperationException("Not supported yet.");
+          throw new UnsupportedOperationException("Not supported yet.");
     }
     
 
     public BST<E>  construcTreeposOrder (ArrayList<E> posOrder){
-            
+
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
