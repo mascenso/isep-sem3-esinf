@@ -7,6 +7,7 @@ import Graphs.PL_Graphs.graph.Graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.BinaryOperator;
 
 /**
  *
@@ -245,6 +246,30 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
             edgeMatrix[vDestKey][vOrigKey] = null;
             numEdges--;
         }
+    }
+
+    public E calculateTotalWeight(BinaryOperator<E> sum, E zero) {
+
+        if ( isDirected ) {
+            for (int i = 0; i < numVerts; i++) {
+                for (int j = 0; j < numVerts; j++) {
+                    if (edgeMatrix[i][j] != null) {
+                        zero = sum.apply(zero, edgeMatrix[i][j].getWeight());
+                    }
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < numVerts-1; i++) {
+                int j;
+                for (j = i+1; j < numVerts  ; j++) {
+                    if (edgeMatrix[i][j] != null) {
+                        zero = sum.apply(zero, edgeMatrix[i][j].getWeight());
+                    }
+                }
+            }
+        }
+        return zero;
     }
 
     @Override

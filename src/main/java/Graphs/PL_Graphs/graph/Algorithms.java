@@ -2,9 +2,7 @@ package Graphs.PL_Graphs.graph;
 
 import Graphs.PL_Graphs.graph.matrix.MatrixGraph;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.function.BinaryOperator;
 
 /**
@@ -179,10 +177,9 @@ public class Algorithms {
                 }
             }
 
+            //vOrig = getVertMinDist(dist, visited)
             vOrig = null;
-
             E minDistance = null;
-
             for (V vert : g.vertices()) {
                 int vVertKey = g.key(vert);
                 if (!visited[vVertKey] && dist[vVertKey] != null && (minDistance == null || ce.compare(dist[vVertKey], minDistance) < 0)) {
@@ -193,7 +190,7 @@ public class Algorithms {
         }
     }
 
-   
+
     /** Shortest-path between two vertices
      *
      * @param g graph
@@ -250,6 +247,7 @@ public class Algorithms {
     public static <V, E> boolean shortestPaths(Graph<V, E> g, V vOrig,
                                                Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                                ArrayList<LinkedList<V>> paths, ArrayList<E> dists) {
+
         if (!g.validVertex(vOrig))
             return false;
 
@@ -257,6 +255,8 @@ public class Algorithms {
 
         boolean[] visited = new boolean[nVerts];
         V[] pathKeys = (V[]) new Object[nVerts];
+
+        @SuppressWarnings("unchecked")
         E[] dist = (E[]) new Object[nVerts];
 
         shortestPathDijkstra(g, vOrig, ce, sum, zero, visited, pathKeys, dist);
@@ -298,8 +298,47 @@ public class Algorithms {
                 getPath(g, vOrig, pathKeys[destIdx], pathKeys, path);
             }
         }
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    /** Calculates the minimum distance graph using Floyd-Warshall
+     *
+     * @param g   initial graph
+     * @return the minimum distance graph
+     */
+    public static <V, E> MatrixGraph<V, E> minDistGraphBinary(Graph<V, E> g, E one) {
+
+        int nVerts = g.numVertices();
+
+        // Initialize the solution matrix = input graph matrix.//*--*--*--*--*--*--*--*--*--*
+        Graph<V, E> minDistGraph = g.clone();
+        //--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*-
+
+        // Transitive Closure.
+        int k, i, j = 0;
+
+        for (k = 0; k < nVerts; k++) // for each line
+        {
+            for (i = 0; i < nVerts; i++) // for each column
+            {
+                //if (i != k && T[i,k] = 1)
+                if (i != k && minDistGraph.edge(minDistGraph.vertex(i), minDistGraph.vertex(k)) != null) // if there is an edge from i to k
+                    for (j = 0; j < nVerts; j++) {
+
+                        //if (i != j && k != j && T[k,j] = 1 )
+                        if (i != j && k != j && g.edge(minDistGraph.vertex(k), minDistGraph.vertex(j)) != null // if there is an edge from k to j
+                        ) {
+                            minDistGraph.addEdge(
+                                    minDistGraph.vertex(i),
+                                    minDistGraph.vertex(j),
+                                    one);
+                        }
+                    }
+            }
+        }
+        return new MatrixGraph<>(minDistGraph);
+
+    }
+
 
     /**
      * Calculates the minimum distance graph using Floyd-Warshall
@@ -347,14 +386,168 @@ public class Algorithms {
                                     ) > 0 )
                             {
                                 minDistGraph.edge(i, j).setWeight(e);
-                        }
+                            }
                         }
                         // if there is an edge from k to j, and the sum is less than the current value
                     }
             }
         }
+        System.out.println(new MatrixGraph<>(minDistGraph));
         return new MatrixGraph<>(minDistGraph);
+    }
 
+    public static <V, E> int shortestPathEdges(Graph<V,E> g, V vOrig) {
+
+        int eccentricity[] = new int[g.numVertices()];
+        int dist[] = new int[g.numVertices()];
+        int path[] = new int[g.numVertices()];
+
+        int max = 0;
+
+        for (int i = 0; i < g.numVertices(); i++) {
+            dist[i] = Integer.MAX_VALUE;
+            path[i] = -1;
+        }
+
+
+        //add vOrig to the queue
+        dist[g.key(vOrig)] = 0;
+
+        //create a queue
+        Queue<V> q = new LinkedList<>();
+        int ecty = 0;
+
+        q.add(vOrig);
+
+        while (!q.isEmpty()) {
+            V v = q.remove();
+            for (Edge<V, E> e : g.outgoingEdges(v)) {
+                int w = g.key(e.getVDest());
+                if (dist[w] == Integer.MAX_VALUE) {
+                    dist[w] = dist[g.key(v)] + 1;
+                    path[w] = g.key(v);
+                    q.add(e.getVDest());
+
+                    if (ecty< dist[w])
+                        ecty = dist[w];
+
+                    if (max < dist[w])
+                        max = dist[w];
+                }
+            }
+        }
+/*
+        System.out.println("Eccentricity of " + vOrig + ": " + eccentricity);
+        for (int i = 0; i < g.numVertices(); i++) {
+            System.out.println("Shortest path from " + vOrig + " to " + g.vertex(i) + " is " + dist[i]);
+        }
+ */
+        return max;
+    }
+
+
+
+
+    /**
+     * Returns the Minimum Span Tree of a given Graph g
+     * @param g initial graph
+     * @param ce
+     * @return
+     * @param <V>
+     * @param <E>
+     */
+    public static <V, E> MatrixGraph<V, E> getMinimumSpanTreeKruskal(Graph<V,E> g, Comparator<E> ce) {
+
+        //int nVerts = g.numVertices();
+        Graph<V, E> mst = g.clone();
+
+        List<Edge<V,E>> lstEdges = new ArrayList<>(mst.edges());
+
+        for (Edge<V,E> e : mst.edges()) {
+            lstEdges.add(e);
+            mst.removeEdge(e.getVOrig(), e.getVDest());
+        }
+
+        lstEdges.sort((e1,e2) -> ce.compare(e1.getWeight(), e2.getWeight()));
+
+        for (Edge<V,E> e : lstEdges) {
+            LinkedList<V> connectedVerts = DepthFirstSearch(mst, e.getVOrig());
+            if (!connectedVerts.contains(e.getVDest()))
+                mst.addEdge(e.getVOrig(), e.getVDest(), e.getWeight());
+        }
+        return new MatrixGraph<>(mst);
+    }
+
+    public static <V,E> E calculateTotalWeight(Graph<V, E> g, BinaryOperator<E> sum, E zero) {
+        MatrixGraph<V, E> mg = new MatrixGraph<>(g);
+        return mg.calculateTotalWeight(sum, zero);
+    }
+
+    public static <V, E> MatrixGraph<V, E> getMinimumSpanTreePrim(Graph<V,E> g, Comparator<E> ce, E infinite, E zero) {
+        // Algorithm void prim(Graph<V,E> g){
+        //     for (all V vertices in g) {dist[V]=∞ path[V]=-1 visited[v]=false }
+        //     vOrig <- 0
+        //     dist[vOrig]=0
+        //     while (vOrig != -1){
+        //         make vOrig as visited
+        //         for (each vAdj of vOrig){
+        //             get edge between vOrig and vAdj
+        //             if (!visited[vAdj] && dist[vAdj] > edge.getWeight()){
+        //                 dist[vAdj] = edge.getWeight()
+        //                 path[vAdj] = vOrig }
+        //         }
+        //         vOrig = getVertMinDist(dist, visited)
+        //     }
+        //     mst=buildMst(path,dist)
+        // }
+
+        boolean[] visited = new boolean[g.numVertices()];
+        V[] pathKeys = (V[]) new Object[g.numVertices()];
+        E[] dist = (E[]) new Object[g.numVertices()];
+
+        for (V v : g.vertices()) {
+            dist[g.key(v)] = infinite;
+            pathKeys[g.key(v)] = null;
+            visited[g.key(v)] = false;
+        }
+
+        V vOrig = g.vertex(0);
+        dist[g.key(vOrig)] = zero;
+
+        while (vOrig != null) {
+            visited[g.key(vOrig)] = true;
+            for (Edge<V,E> e : g.outgoingEdges(vOrig)) {
+                if (!visited[g.key(e.getVDest())] && ce.compare(dist[g.key(e.getVDest())], e.getWeight()) > 0) {
+                    dist[g.key(e.getVDest())] = e.getWeight();
+                    pathKeys[g.key(e.getVDest())] = vOrig;
+                }
+            }
+            vOrig = getVertMinDist(g, dist, visited, ce);
+        }
+
+        return buildMst(g, pathKeys, dist);
+    }
+
+    private static <V, E> V getVertMinDist(Graph<V,E> g, E[] dist, boolean[] visited, Comparator<E> ce) {
+        V vMin = null;
+        E min = null;
+        for (V v : g.vertices()) {
+            if (!visited[g.key(v)] && (min == null || ce.compare(dist[g.key(v)], min) < 0)) {
+                min = dist[g.key(v)];
+                vMin = v;
+            }
+        }
+        return vMin;
+    }
+
+    private static <V, E> MatrixGraph<V, E> buildMst(Graph<V,E> g, V[] pathKeys, E[] dist) {
+        Graph<V, E> mst = new MatrixGraph<>( g.isDirected(), g.numVertices());
+        for (V v : g.vertices()) {
+            if (pathKeys[g.key(v)] != null) {
+                mst.addEdge(pathKeys[g.key(v)], v, dist[g.key(v)]);
+            }
+        }
+        return new MatrixGraph<>(mst);
     }
 
 }
