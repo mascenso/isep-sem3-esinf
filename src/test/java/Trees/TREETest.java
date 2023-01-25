@@ -127,6 +127,21 @@ public class TREETest {
         
         assertEquals(Arrays.asList(inorderT), newTree.preOrder());
         System.out.println(newTree);
-    } 
+    }
+
+    @Test
+    public void testPredecessor(){
+        System.out.println("predecessor");
+        System.out.println(instance.toString());
+        assertEquals((Integer)15, instance.predecessor(17));
+        assertEquals((Integer)13, instance.predecessor(15));
+        assertEquals((Integer)10, instance.predecessor(13));
+        assertEquals((Integer)8,  instance.predecessor(10));
+        assertEquals((Integer)7,  instance.predecessor(8));
+        assertEquals((Integer)17, instance.predecessor(20));
+        assertEquals((Integer)40, instance.predecessor(50));
+        assertEquals((Integer)30, instance.predecessor(40));
+        assertNull(instance.predecessor(7));
+    }
     
 }

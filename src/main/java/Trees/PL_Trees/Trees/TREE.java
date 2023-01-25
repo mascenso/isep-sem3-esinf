@@ -29,7 +29,7 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
         return found;
     }
 
- 
+
     public boolean isLeaf(E element){
 
        if (element == null) {
@@ -94,7 +94,7 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
         t.root = copyRec(root());
         return t;
     }
-    
+
     private Node<E> copyRec(Node<E> node){
 
         if (node == null) {
@@ -107,7 +107,7 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
 
         return new Node<>(node.getElement(), copyRec(node.getLeft()), copyRec(node.getRight()));
     }
-    
+
     /**
     * @return the the number of nodes by level.
     */
@@ -119,7 +119,7 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
         numNodesByLevel(root(), numNodes, 0);
         return numNodes;
     }
-    
+
     private void numNodesByLevel(Node<E> node, int[] result, int level){
 
         if (node == null) {
@@ -184,5 +184,32 @@ public class TREE<E extends Comparable<E>> extends BST<E> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * 3 - Adicione à classe TREE um metodo generico que devolva o predecessor de um elemento passado como parametro.
+     * @param elem
+     * @return
+     */
+    public E predecessor(E elem) {
 
+        Node<E> node = root;
+        Node<E> predecessor = null;
+
+        while (node != null) {
+            if (elem.compareTo(node.getElement()) < 0) {
+                node = node.getLeft();
+            } else if (elem.compareTo(node.getElement()) > 0) {
+                predecessor = node;
+                node = node.getRight();
+            } else {
+                if (node.getLeft() != null) {
+                    predecessor = node.getLeft();
+                    while (predecessor.getRight() != null) {
+                        predecessor = predecessor.getRight();
+                    }
+                }
+                break;
+            }
+        }
+        return predecessor == null ? null : predecessor.getElement();
+    }
 }

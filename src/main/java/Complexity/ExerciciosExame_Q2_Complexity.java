@@ -111,6 +111,56 @@ public class ExerciciosExame_Q2_Complexity {
         }
     } // Total = O(n) + O log n = O(n)
 
+    /**
+     * Exame Normal 2022
+     * @param str
+     * @param padrao
+     * @return
+     */
+    public static int encontrar(String str, String padrao){
+        int j = 0;
+        int a = 0;
+        while (j < str.length()) {
+            int jj = j;
+            int k = 0;
+            while (jj < str.length() && str.charAt(jj)==padrao.charAt(k)){
+                a++;
+                jj++;
+                k++;
+                if (k == padrao.length())
+                {
+                    System.out.printf("Total nr of iterations: " + a);
+                    return j;
+                }
+            }
+            j++;
+        }
+        System.out.println("Encontrar:");
+        System.out.println("For input n = " + str.length());
+        System.out.printf("Total nr of iterations: " + a);
+        System.out.println();
+        return -1;
+    } // complexity n²
+
+
+    /**
+     * Normal 2023
+     * 2 - Complexidade
+     **/
+    public static String[] complexAnal(int a[]){
+        String[] r = new String[a.length];
+
+        for (int i = 0; i < a.length; i++){
+            r[i] = doWork(a[i]);
+        }
+        return r; //Total O(n*logm), em que logm é o tempo de execução de doWork, e n é o tamanho do array
+    }
+
+    public static String doWork(int n){
+        if (n == 0) return "";
+        return doWork(n/2) + n%2; // a complexidade disto é O(log n)
+    }
+
     public static void main(String[] args) {
         long start;
         long end;
@@ -168,5 +218,12 @@ public class ExerciciosExame_Q2_Complexity {
         // complex n
         System.out.println();
         System.out.println("Time: " + (end - start) + " ms");
+
+
+        System.out.println("\n");
+        System.out.println("Encontrar:");
+        System.out.println(
+                encontrar("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaax", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        );
     }
 }

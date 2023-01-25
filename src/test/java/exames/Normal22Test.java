@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static exames.Normal22.retornaListaAmplitude;
+import static JCF.ExerciciosExame_Q1_JCF.*;
 
 class Normal22Test {
 

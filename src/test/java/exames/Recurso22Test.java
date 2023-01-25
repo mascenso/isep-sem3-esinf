@@ -3,13 +3,13 @@ package exames;
 import Trees.PL_Trees.Trees.TREE;
 import Graphs.PL_Graphs.graph.Graph;
 import Graphs.PL_Graphs.graph.matrix.MatrixGraph;
-import exames.Recurso22.Recurso22;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static exames.Recurso22.Recurso22.footWorldCup;
+import static Graphs.ExerciciosExame_Q4_Graphs.*;
+import static JCF.ExerciciosExame_Q1_JCF.*;
 
 class Recurso22Test {
 
@@ -69,8 +69,8 @@ class Recurso22Test {
 
         g.addEdge("G", "E", 1);
 
-        System.out.println(Recurso22.graphDiameter(g));
-        Assertions.assertEquals(3, Recurso22.graphDiameter(g));
+        System.out.println(graphDiameter(g));
+        Assertions.assertEquals(3, graphDiameter(g));
     }
 
     /**
